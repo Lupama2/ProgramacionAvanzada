@@ -36,3 +36,8 @@ type Option<'a> =
    | None                 // missing
 
 Además, este tipo de datos nos permite no trabajar con "nros mágicos". Por ejemplo, si estoy midiendo algo y de repende deja de medir, no tengo que poner un "0" o un "-1" en la cadena
+
+
+Clase 8:
+
+En F# se pueden leer archivos .txt, .json y .html (archivo web!). Revisar esto último. En el proceso se crean seq (secuencias) de records.
