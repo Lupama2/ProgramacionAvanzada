@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qnq5h5e0MNifcbPFuXNipC1ZHD1hHu9/ejtSV3gDuRXFm8Q+60ng0MdSY2p6MNeKUrmvY8ZmOoOQz0gasHJRHQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lupam\\OneDrive\\Escritorio\\GitHub\\ProgramacionAvanzada\\Ejercicios\\Ejercicios_clase_09\\HolaMundo\\src\\MyLibrary\\MyLibrary.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lupam\\.nuget\\packages\\fsharp.core\\7.0.200\\fsharp.core.7.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}
