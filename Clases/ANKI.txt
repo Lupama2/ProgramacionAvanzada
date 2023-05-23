@@ -1,10 +1,15 @@
 Clase 0 
 Q:
-
+¿Qué es F#? ¿Cuáles son sus principales características?
 A:
+Es un lenguaje de programación creado en Microsoft. Sus principales características son
+*Es un lenguaje multi-paradigma: se puede programar con un enfoque funcional, orientado a objetos y/o imperativo. Aún así, es un lenguaje first functional en el sentido que se concibió originalemnte para el paradigma funcional.
+*Es un lenguaje fuertemente tipado: dado el valor de una variable de un tipo concreto, no se puede usar como si fuera de otro tipo distinto a menos que se haga una conversión
+*Es un lenguaje compilado: hay que editar-compilar-ejecutar. También se puede usar en un notebook
+
 
 Q:
-
+¿Qué es una expresión?
 A:
 
 Q:
@@ -135,71 +140,3 @@ Q:
 
 A:
 
-
-
-Q:
-¿Qué deben probar los tests?
-A:
-Los tests deben probar casos de soluciones conocidas o propiedades de las funciones, ya sean características del output como propiedades intrínsecas de las cuentas (por ejemplo, add 1 2 = add 2 1). Además, los tests no deben hacer la misma cuenta que está haciendo la función porque justamente eso es lo que queremos testear
-
-Q:
-Dependiendo de quién hace un test sobre el código, ¿cómo se clasifican los tests? ¿Qué características tienen cada uno de ellos?
-
-A:
-Se clasifican en tests manuales llevado a cabo por personas y tests automatizados llevados a cabo por máquinas que ejecutan un "test script". Los primeros son costosos y están expuestos a errores humanos. Los segundos son más rápidos y confiables, pero su calidad depende de qué tan bien escritos estén los "tests scripts".
-
------
-Pregunta sacada de
-https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software
-
-Q:
-¿Cuáles son los distintos dipos de tests? Solo nombrarlos
-
-A:
-*Unit Tests
-*Integration Tests
-*End-to-end Tests
-*Regression Tests
-*Performance Tests
------
-Existen más, pero esos son los más importantes. Pregunta sacada de
-https://programacionymas.com/blog/tipos-de-testing-en-desarrollo-de-software
-
-
-Q:
-¿De qué tratan los unit tests?
-
-A:
-Consisten en probar de forma individual las funciones y/o métodos. Estas pruebas verifican que el nombre de la función o método sea adecuado, que los nombres y tipos de los parámetros sean correctos y así mismo el tipo y valor de lo que se devuelve como resultado
-
-Q:
-¿Qué hacen los integration tests?
-A:
-Estas verifican que los diferentes módulos y/o servicios usados por nuestra aplicación funcionen en armonía cuando trabajan en conjunto.
-
-Q:
-¿Qué hacen los end-to-end tests?
-A:
-Estas realizan la ejecución completa del programa. Son muy costosas de realizar.
-
-Q:
-¿Qué hacen los regression tests?
-A:
-Estos verifican un conjunto de escenarios que funcionaron correctamente en el pasado, para asegurar que continúen así. Una falla en una prueba de regresión significa que una nueva funcionalidad ha afectado otra funcionalidad que era correcta en el pasado, causando una "regresión". Además, una falla podría indicar también que se volvió a producir un bug que ya había sido resuelto en el pasado.
-
-Q:
-¿Qué hacen los performance tests?
-
-A:
-Verifican cómo responde el sistema cuando éste se encuentra bajo una alta carga. Las pruebas de rendimiento son, por su naturaleza, bastante costosas de implementar y ejecutar, pero pueden ayudarnos a comprender si nuevos cambios van a degradar nuestro sistema (como hacerlo más lento o aumentar su consumo de recursos). Las pruebas de rendimiento no fallan del mismo modo en que lo hacen las demás pruebas. En vez de ello su objetivo es recolectar métricas y definir objetivos por alcanzar.
-
-Q:
-¿Qué es una test suite?
-A:
-Es un conjunto de tests particulares para nuestro programa que engloba distintos tipos de tests.
-
-Q:
-¿Cómo automatizar los tests?
-
-A:
-Los tests deben poder ejecutarse independientemente del programa principal. Para automatizarlos se puede usar un testing framework. Existen varias opciones por cada lenguaje. Además, también se pueden ejecutar desde un servidor en la nube.
