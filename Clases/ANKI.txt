@@ -198,7 +198,6 @@ Q:
 A:
 Es un conjunto de tests particulares para nuestro programa que engloba distintos tipos de tests.
 
-
 Q:
 ¿Cómo automatizar los tests?
 
