@@ -11,23 +11,210 @@ Es un lenguaje de programación creado en Microsoft. Sus principales caracterís
 Q:
 ¿Qué es una expresión?
 A:
+Una expresión es un conjunto ordenado de símbolos que pueden representar diferentes entidades en el código. Una expresión debe tener una sintaxis válida y también debe ser significativa. El compilador ecaluará la expresión y obtendrá como resultado un valor
+
+-----
+Ejemplo:
+let j = 1 // un entero 
+"1" es una expresión literal, "a" es un identificador, "let" vincula la expresión a un identificador y "=" es el operador vinculante.
 
 Q:
-
+¿Por qué no se usa el término "variable" en F#?
 A:
+Una vez que se obtiene el valor de una expresión y se asigna a un identificador, no se puede volver a vincular otra expresión al mismo identificador. Es decir, todos los valores son inmutables. 
 
 Q:
-
+¿Qué características comparten las funciones de F# con las funciones matemáticas?
 A:
-
+* Definición: una función de un conjnto de entidades A a un conjunto de entidades B es una relación que asocia elementos entre los conjuntos A y B, con la propiedad de que todos y cada uno de los elementos de A tienen un único elemento correspondiente de B. Adempas, todos los elementos de la entrada deben relacionarse con algún elemento del conjunto de salida
+* Pueden tener múltiples entradas y salidas
+* Se puede fabricar una nueva función haciendo una aplicación partcial de una función que recibe múltiples argumentos.
+* Se pueden componer
 Q:
+¿Cómo se componen las funciones en F#?
+
+Componga la siguiente función
+let next x =
+    x + 1 
 
 A:
+* Se puede evaluar una función sobre la salida de otra usando paréntesis
+let two = next (next 0)
+* Se puede usar el operador pipe |>, el cual solo acepta el último argumento cuando hay más de uno,
+let anotherTwo =
+    0 
+    |> next
+    |> next 
+* Se puede usar el símbolo >>
+let add2 = next >> next 
+let two' = add2 0
 
 Clase 1
 Q:
+¿Qué es un tipo?
+A:
+Un tipo es la herramienta que proporcionan los lenguajes informáticos para agrupar o agregar las propiedades del modelo de cualquier entidad de nuestro dominio. Ejemplos de tipos son los tipos básicos, como números enteros y floatantes, cadenas de caracteres, booleanos, etc, y los tipos compuestos que se construyen usando los tipos básicos.
+
+-----
+La palabra clave que usa F# para construir tipos complejos es type. A diferencia de otros lenguajes, no hay una promoción implícita de tipos en el lenguaje. Por ejemplo
+let s = 2 + 3.0 //da error
+
+Q:
+Entradas y salidas de funciones
 
 A:
+
+Q:
+¿Cómo se declara el "tipo" de un identificador en F#? 
+
+A:
+Se usa la notación :<type>. Por ejemplo
+let aa: float = 1.0 + 3.0 // floats 
+o
+let sum a b : int = 
+    a + b 
+para declarar el tipo de output
+
+
+Q:
+¿Siempre es necesario declarar el "tipo" de un identificador?
+A:
+A veces no es necesario declararlo, pues ha sido inferido por el compilador. Cuando se codifica en un IDE compatible con F#, habrá un compilador de F# que digiere el código a medida que se escribe y explora con qué tipos se está trabajando.
+
+Q:
+¿Qué valores puede tomar el tipo "unit"? ¿Qué representa? ¿Para qué se usa?
+A:
+El tipo unit tiene solo un valor posible (), y se usa para representar que no hay ningún tipo. El lenguaje proporciona esta característica para tratar, por ejemplo, con funciones que no devuelven nada o no reciben ningúnn argumento. En general, el tipo unit es una pista típica de que estamos lidiando con algún efecto secundario.
+-----
+Por ejemplo
+let q = printfn "I am printfn " //aquí el valor de q es ()
+
+Q:
+En una función. ¿qué es un efecto secundario? En cuanto a estos, ¿qué ventajas tiene utilizar un lenguaje funcional?
+
+A:
+Un efecto secundario es algo que hace el código que no pertenece al ámbito en el que está trabajando el código, por ejemplo imprimir en consola (printfn). Lo que hace la programación funcional es brindar todas las herramientas para evitar efectos secundarios no deseados en el código, pero para producir efectos secundarios deseados cuando sean necesarios. En lenguajes no funcionales, el efecto secundario no deseado más común es poder cambiar los valores de entrada en una función o cambiar el valor de una variable global dentro de una función. Esto hace que la depuración sea mucho más difícil y que el código sea mucho más difícil de mantener.
+
+Q:
+¿Que son las discriminated unions? ¿Para qué son útiles?
+A:
+Son un tipo de dato que puede tener varios tipos de casos (disjuntos). Son útiles para modelar aquellas características de entradas y salidas que pertenecen a una colección bien predefinida.
+-----
+Por ejemplo
+type FoodProduct =
+    | Chips
+    | Chocolate
+    | Candy 
+Q:
+Dada una discriminated union, ¿cómo se representa un caso?
+
+A:
+Con un punto .
+-----
+Por ejemplo, dada la discriminated union
+type FoodProduct =
+    | Chips
+    | Chocolate
+    | Candy 
+un caso se representa como
+let d = FoodProduct.Chips
+
+Q:
+¿Cómo se puede desagregar los diferentes casos de una entrada que es una discriminated union?
+A:
+Mediante pattern matching. La coincidencia de patrones es exhaustiva, es decir, la coincidencia debe contener todos los posibles casos de la discriminated union y, además, se evalúa en el orden en que se escribe.
+-----
+Por ejemplo
+//Discriminated union
+type Electronics = 
+    | Phones
+    | Speakers
+    | Headphones
+
+let price electronic = 
+    //Pattern matching
+    match electronic with 
+    | Phones -> 435
+    | Speakers -> 29
+    | Headphones -> 122
+
+El lenguaje introduce el símbolo comodín "_" que coincide con cualquier entrada en la construcción de coincidencia de patrones
+
+Q:
+Dada la siguiente combinación de discriminated union y tipos básicos, ¿cómo se obtiene en una función el string?
+type BrandedFood =
+    | Chips of string 
+    | Chocolate of string 
+    | Candy of string 
+
+A:
+Con pattern matching
+let brand product = 
+    match product with
+    | Chips p -> p 
+    | Chocolate p -> p 
+    | Candy p -> p 
+
+Q:
+¿Qué es una unión discriminada única? ¿Por qué es útil?
+A:
+Corresponde a aquella que solo tienen un término. Permite proteger la entrada de la función de tal manera que tiene que ser del tipo exacto que decidimos, y nada más.
+
+-----
+Dado que la unión discriminada solo tiene un caso, hay una forma breve de desenvolver el valor que contiene:
+type Model =
+    | Model of string
+let yPhone = Model "Xtreme 3S"
+let (Model yPhoneModel) = yPhone
+
+Q:
+¿Cuál es la diferencia conceptual entre discriminated union y records?
+A:
+La unión discriminada y el record son las dos formas en que uno puede representar entidades en el lenguaje. La diferencia es que la primera es útil para representar entidades que se pueden restringir a unos tipos específicos, como por ejemplo el tipo de producto. Mientras que la segunda es útil para describir entidades que no se pueden restringir a unos tipos específicos, por ejemplo los nombres posibles de una persona. Son tantos que sería prácticamente imposible escribir una lista de todos los casos.
+
+-----
+Ejemplo de record
+type CreditCard =
+    {
+        HoldersName : string
+        Number: string
+        ExpirationDateMonth: uint8 
+        ExpirationDateYear: uint8 
+        CVV: uint16
+    }
+Es posible copiar un record a uno nuevo sin definir todos los campos devuelta
+
+Q:
+¿Cuál es la diferencia entre el control de flujo condicional de F# respecto a otros lenguajes?
+A:
+En la mayoría de los lenguajes existe la sentencia if condición then ... else, que permite administrar el código de acuerdo a si la condición es verdadera o falsa.
+
+Sin embargo, en F#, no tenemos sentencias sino expresiones, con lo cual el if también es evaluado como una expresión y debe devolver un valor. La expresión if no es más que un edulcorante sintáctico para una expresión de pattern matching. De hecho, se pueden crear "mútliples ramas" usando pattern matching
+
+-----
+Por ejemplo, podemos evaluar la función ||x||:
+let absoluteValue x =
+    let v = 
+        if x < 0 then
+            -x 
+        else 
+            x
+    v
+
+let absoluteValuePM x =
+    match x < 0 with 
+    | true -> -x 
+    | false -> x 
+    
+Q:
+¿Cúal es la diferencia entre un loop for de F# y respecto a otros lenguajes?
+A:
+El loop for habitual requiere (ya sea explicita o implícitamente) algún tipo de contador que se va actualizando, esto es, es una variable. Mientras que en los lenguajes funcionales se emplea la recursión en su lugar.
+
+-----
+En la práctica, la forma más pura de programar una recursión no es la más adecuada. A veces se realizan llamados inncesarios a la función recursiva. Frecuentemente se utiliza el método conocido como tail recursion, en el cual se previene el llamado innecesario a la función recursiva introduciendo nuevos valores que van llevando la información del estado anterior de la recursión al cálculo presente
+
+Clase 3:
 
 Q:
 
@@ -37,57 +224,7 @@ Q:
 
 A:
 
-Q:
 
-A:
-
-Q:
-
-A:
-
-Clase 0 
-Q:
-
-A:
-
-Q:
-
-A:
-
-Q:
-
-A:
-
-Q:
-
-A:
-
-Q:
-
-A:
-
-Clase 0 
-Q:
-
-A:
-
-Q:
-
-A:
-
-Q:
-
-A:
-
-Q:
-
-A:
-
-Q:
-
-A:
-
-Clase 0 
 Q:
 
 A:
@@ -135,8 +272,33 @@ Q:
 
 A:
 
+NOTAS A PROCESAR:
+¿Por qué usar F# respecto a otros lenguajes?
+F# se diferencia en que el compilador se encarga de mucha parte del trabajo de control. Sirve entonces para que los errores aparezcan en la etapa de compilación, antes de la de ejecución. En códigos simples puede no ser de mucha utilidad, pero sí lo es en códigos complejos. En algún sentido está bueno aprender el paradigma funcional para saber que existe y, una vez aprendido, entender sus ventajas. 
 
-Q:
+Clase 6:
 
-A:
+Q: ¿Qué son las secuencias? ¿Cuál es la diferencia respecto a las listas?
 
+A: Las secuencias (`seq`) son otro tipo de colecciones que ofrece F#, y se utilizan habitualmente cuando uno tiene una gran cantidad de datos. En efecto, a diferencia de las listas, los elementos de una secuencia se computan a medida que son requeridos.
+
+Q: ¿Se puede trabajar con archivos en F#?
+
+A: Sí. F# tiene funciones específicas para trabajar con archivos. Nosotros vimos algunas de ellas
+
+Clase 7:
+
+Q: Supongamos que está cargando pares de datos y se encuentra con un par de datos donde uno no existe. ¿Qué hacer?
+
+A: En F# se puede tratar con datos que no existen usando el tipo option
+-----
+type Option<'a> =       
+   | Some of 'a           // valid value
+   | None                 // missing
+
+Además, este tipo de datos nos permite no trabajar con "nros mágicos". Por ejemplo, si estoy midiendo algo y de repende deja de medir, no tengo que poner un "0" o un "-1" en la cadena
+
+
+Clase 8:
+
+En F# se pueden leer archivos .txt, .json y .html (archivo web!). Revisar esto último. En el proceso se crean seq (secuencias) de records.
