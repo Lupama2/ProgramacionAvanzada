@@ -1,0 +1,10 @@
+# Complejidad computacional
+
+Hace referencia a la complejidad de un problema. Los algoritmos se caracterizan por cuánta memoria necesita y cuánto tiempo le toma resolver un problema. Los algoritmos pueden tener distintos tipos de complejidad y, por extensión, considerando el mejor algoritmo para cada problema, cada problema puede ser de distinta complejidad:
+*Tipo P: Polynomial time. Tienen un tiempo de cómputo O(N^k)
+*Tipo NP: Non-deterministic Polinomial time. No tienen orden polinomial. Orden exponencial, mayor a una exponencial, algoritmos que no se sabe qué son. Dentro de esta categoría existen
+**NP-Hard: problemas cuya dificultad no puede asociarse a la más sencilla de los NP-completos.
+**NP-Completos: estos son los problemas de decisión (sí o no). Por ejemplo: dado un entero m, existe un k primo que lo factorice con k < m. (o algo así). Otro ejemplo: una dada solución propuesta de sudoku, es solución? Aquí nos interesa si la verificación de la solución es del orden polinomial P = "rápida" respecto a resolver el problema completo con un algoritmo. Otra característica de estos problemas es que se pueden encontrar otro problema NP-completo equivalente. Dentro de los problemas NP-Completos existe la categoría de problemas SAT (Boolean satisfiability problem). En estos, uno tiene variables booleanas conectadas entre sí mediante cláusulas booleanas con operadores AND(^), OR() y NOT. EL problema es encontrar las variables de modo que toda la expresión sea verdadera. En particular, existe en un problema denominado 3SAT. Es difícil de encontrar una solución, pero es fácil verificar si una dada propuesta es solución.
+
+
+El circuito difusor me determina el estado particular que estoy buscando. Si le doy |0> |0> me va a medir |0> |0> y si lo alimento con |0> |1> voy a medir |0> |1>. De este modo, se está verificando que 
