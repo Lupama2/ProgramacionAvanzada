@@ -1,90 +1,171 @@
-Clase 0 
+Clase 3
 Q:
-
+¿Qué son las tuplas en F#?
 A:
-
-Q:
-
-A:
-
-
-
+Las tuplas son agregados ordenados de (unos muy pocos) datos, posiblemente de distinto tipo, que en algunos casos son más convenientes que definir records. Son un tipo de dato, así que se puede mezclar con records, uniones, etc
 
 Q:
-
+¿Cómo se accede a los elementos de una tupla de F#?
 A:
+Mediante pattern matching y su variante
 
+-----
+let cookies = ("Opera", 200, 4.15)
+let _, operaWeight, operaPrice = cookies //variante de pattern matching. "_" es un comodín para no asignar la componente.
 
 Q:
-
+¿Qué características tienen las colecciones en F#? Da ejemplos de colecciones
 A:
-
-Q:
-
-
-A:
-
-
-Clase 1
-
-Q:
-
-
-A:
-
+En F# las colecciones siempre son homogéneas, esto es, contienen el mismo tipo de dato. Por otra parte, el lenguaje provee de tipos de colecciones inmutables (list, seq, map, set), excepto Array que puede ser mutable.
 
 
 Q:
+¿Cómo permite F# trabajar sobre las colecciones?
+A:
+El lenguaje provee de una variedad de métodos para trabajar con las colecciones como un todo, sin necesidad de tener que iterar para sacar provecho de las mismas.
+
+Q:
+¿Qué es un tipo recursivo? ¿Qué operaciones se pueden realizar sobre ellos?
 
 A:
+Es un tipo que tiene uno o más casos base y luego uno o más casos recursivos.
+-----
+Por ejemplo
+type MyList =
+    | Empty
+    | Cons of int * MyList 
+-----
+Se pueden realizar aplicaciones a funciones y reducciones empleando recursión.
+
+
+Clase 4
+
+Q:
+¿Cuál es la diferencia entre definir una lista con un tipo recursivo y una con el tipo list de F#?
+
+A:
+Ambos son una lista simplemente enlazada. La diferencia está en que el tipo list se define como una discriminate union, es general para cualquier tipo de datos y utiliza símbolos adecuados en lugar de etiquetas
+-----
+Su definición es tal que
+type List<'T> = 
+       | ([])  
+       | ( :: )  of Head: 'T * Tail: 'T list
+((Además, los métodos para una sirven para la otra))
+-----
+Se pueden construir listas mediante list comprehension usando el constructor for en un estilo imperativo.
+
+Q:
+¿Qué es una función anónima?
+
+A:
+Una función definida como
+fun arguments -> expression
+También se conocen como funciones lambda
 
 
 Q:
+¿Qué es un interpolated string?
 
 A:
+Un interpolated string es una cadena de caracteres que comienza con el símbolo $, y tiene el texto entre comillas dobles. En su interior se pueden usar los valores entre llaves {}.
+-----
+Por ejemplo
+printfn $"Resultado = {x}"
 
+En Python el análogo es f"Resultado = {x} "
 
+Q:
+¿Qué es un Map en F#?
+A:
+Un diccionario
+
+Q:
+¿Qué acciones se pueden realizar sobre una colección en F#?
+A:
+Se puede iterar una función sobre cada elemento, orderla a través de un criterio, buscar algún elemento particular, hacer una reducción, filtrar mediante una condición,  típica, agrupar elementos de características similares y contar la cantidad de elementos de cada grupo, entre otras. También es posible convertir los distintos tipos de colecciones entre sí.
+
+Q:
+¿Qué características tiene el manejo de excepciones en F#? Considere el ejemplo
+
+let getHeadExn (l: int list) = 
+    try 
+        l.Head 
+    with
+    | :? System.InvalidOperationException  -> 
+        printfn "Exception!" 
+        -1 
+
+A:
+* Si una excepción no es capturada, el programa se termina.
+* Se puede capturar una excepción mediante pattern matching.
+* El bloque try...with es una expresión y por lo tanto ambas ramas (try y with) tienen que retornar el mismo tipo de dato. En este caso, el valor -1 puede ser problemático y es más adecuado emplear el tipo Result
+* Se pueden crear excepciones personalizadas, mediante la función raise
+
+Clase 5
+Q:
+¿Qué es el tipo Result? ¿Bajo qué situación se utiliza?
+
+A:
+Es un tipo de discriminated union particular
+-----
+Se define como
+type Result<'T,'TError> =
+    | Ok of 'T // cuando la operación se pudo realizar
+    | Error of 'TError // cuando existe un error
+-----
+Se utiliza para hacer manejo de errores. Tiene una serie de métodos asociados que contribuyen a tal tarea.
+
+Q:
+¿Cómo se trabajan las unidades de medida en F#?
+
+A:
+Mediante los decoradores o atributos sobre los tipos de datos, expresados como [<AttributeName>]. En el caso de las unidades de medida
+[<Measure>]
+type s 
+
+[<Measure>]
+type m 
+
+let c = 299792458.0<m/s>
+
+Clase 6:
+Q:
+¿Qué son las secuencias (seq)? ¿Para qué son útiles?
+
+A:
+Son un tipo de colecciones de F# utilizado habitualmente cuando uno tiene una gran cantidad de datos. Además, se asocian a un tipo particular del ecosistema .NET (llamado IEnumerable<T>), con lo cual son adecuadas para interactuar con bibliotecas o interfaces escritas en otros lenguajes.
+-----
+Esto permite, por ejemplo, trabajar con librerías que manejan paths a archivos y strings, lectura y escritura de archivos, entre otras, todas propias de .NET.
+
+Q:
+¿Cuál es la diferencia entre secuencias (seq) y listas (List)?
+
+A:
+Los elementos de una secuencia se computan a medida que son requeridos (proceso denominado como lazy evaluation). Además, tienen constructores distintos. Por último, está permitido crear una secuencia infinita
+
+Q:
+¿Cómo es posible leer y escribir información en archivos usando F#?
+
+A:
+Es necesario utilizar funciones del ecosistema .NET. Al leer un archivo se devuelve un tipo de dato IEnumerable<T> que se asocia a una secuencia (seq)
+
+Clase 7:
+Q:
+¿Qué ocurre si en la lectura de un archiv faltan datos? ¿Cómo tratar este problema?
+
+A:
+La lectura dará error. Para tratar con datos que no existen se emplea el tipo option
+type Option<'a> =       
+   | Some of 'a           // valid value
+   | None                 // missing
+-----
+Además, este tipo de datos nos permite no trabajar con "nros mágicos". Por ejemplo, si estoy midiendo algo y de repende deja de medir, no tengo que poner un "0" o un "-1" en la cadena
+
+Clase 8:
 Q:
 
 A:
-
-
-Q:
-
-A:
-
-Q:
-
-
-A:
-
-
-Q:
-
-A:
-
-
-Q:
-
-A:
- 
-
-Q:
-
-A:
-
-
-Q:
-
-A:
-
-
-
-
-Q:
-
-A:
-
+En F# se pueden leer archivos .txt, .json y .html (archivo web!). Revisar esto último. En el proceso se crean seq (secuencias) de records.
     
 Q:
 
@@ -147,35 +228,3 @@ Clase n
 Q:
 ¿Qué es un test? ¿Por qué son útiles los tests?
 
-A:
-
-NOTAS A PROCESAR:
-¿Por qué usar F# respecto a otros lenguajes?
-F# se diferencia en que el compilador se encarga de mucha parte del trabajo de control. Sirve entonces para que los errores aparezcan en la etapa de compilación, antes de la de ejecución. En códigos simples puede no ser de mucha utilidad, pero sí lo es en códigos complejos. En algún sentido está bueno aprender el paradigma funcional para saber que existe y, una vez aprendido, entender sus ventajas. 
-
-Clase 6:
-
-Q: ¿Qué son las secuencias? ¿Cuál es la diferencia respecto a las listas?
-
-A: Las secuencias (`seq`) son otro tipo de colecciones que ofrece F#, y se utilizan habitualmente cuando uno tiene una gran cantidad de datos. En efecto, a diferencia de las listas, los elementos de una secuencia se computan a medida que son requeridos.
-
-Q: ¿Se puede trabajar con archivos en F#?
-
-A: Sí. F# tiene funciones específicas para trabajar con archivos. Nosotros vimos algunas de ellas
-
-Clase 7:
-
-Q: Supongamos que está cargando pares de datos y se encuentra con un par de datos donde uno no existe. ¿Qué hacer?
-
-A: En F# se puede tratar con datos que no existen usando el tipo option
------
-type Option<'a> =       
-   | Some of 'a           // valid value
-   | None                 // missing
-
-Además, este tipo de datos nos permite no trabajar con "nros mágicos". Por ejemplo, si estoy midiendo algo y de repende deja de medir, no tengo que poner un "0" o un "-1" en la cadena
-
-
-Clase 8:
-
-En F# se pueden leer archivos .txt, .json y .html (archivo web!). Revisar esto último. En el proceso se crean seq (secuencias) de records.
