@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "UYJyjHV0/S+2nTZYIEICaivAZiw8HpQovP4wanb0TNT0S9iy+b8I5ephTjIGVWb2LGgWrfBgnhGJExfifLKstQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lupam\\OneDrive\\Escritorio\\GitHub\\ProgramacionAvanzada\\Final\\Input\\Input.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lupam\\.nuget\\packages\\fsharp.core\\7.0.200\\fsharp.core.7.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}
