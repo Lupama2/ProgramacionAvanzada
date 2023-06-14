@@ -9,20 +9,23 @@
 
 open System
 
-let mutable run = true
+let mutable terminar_juego = false
 
-// let leer_teclado =
-
-while run do
+let leer_teclado () = 
     if Console.KeyAvailable then
         let key = Console.ReadKey(true).Key
         match key with
-        | ConsoleKey.Q -> run <- false // Presionar Q para detener el loop
         | ConsoleKey.LeftArrow -> printfn "Has presionado <-"
         | ConsoleKey.RightArrow -> printfn "Has presionado ->"
         | _ -> printfn "Sin efecto %A" key
     else
         () // printfn "No presionaste ninguna letra"
 
+while terminar_juego = false do
+
+    leer_teclado ()
+
     System.Threading.Thread.Sleep(10) // espera un segundo
+
+
 
