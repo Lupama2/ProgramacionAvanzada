@@ -1,0 +1,46 @@
+*Implementar las interacciones
+
+- [ ] Hacer una función para tratar el input del usuario. Solo hacer algo si es una flecha a izquierda o derecha
+*Importar esa función desde otro archivo
+*Hacer que el loop recursivo devuelve unit () y se detenga solo si se apreta la letra Q
+
+
+
+## Falta por implementar a Chehade:
+
+- [ ] Hacer un test no unitario. Buscar el tipo de test y agregarlo a la solución. A priori podría usar la carpeta de tests unitarios. Podría pedirle al usuario que escriba una letra y se imprima en pantalla. Y si no escribe ninguna, que se imprima "no se escribió ninguna letra"
+
+
+*Implementar una librería llamada "Dinamica"
+que establezca las condiciones bajo las cuales
+* El juego termina (letra Q o lista de bloques vacía)
+* El juego se pausa (letra P)
+
+
+
+
+
+el rho }de 2.27 es rho_1 o rho_0?
+
+
+
+
+
+
+Progrm Avanzada
+
+Agregar al repo de Programación Avanzada
+*Definir arbitrariamente dt, la velocidad de la barrita, vx_barrita
+*dt tiene que ser tal que se halla movido significativamente la bolita. Definir dt respecto al tamaño del tablero y la velocidad de la bolita equivalentemente. 
+
+*Agregar a alguna lista:
+Hacer TP3 Program Avanzada
+
+*Cómo modelo los choques con la barra? Como choques elásticos o como los choques en el juego que permiten un ángulo de salida arbitrario?
+
+No es necesario modelar todo exactamente como el juego
+No hay que hacer el proyecto y el loop temporal, ni la interfaz gráfica, ni el input del usuario. De eso se va a encargar el usuario
+
+Modelar:
+*Score
+*
